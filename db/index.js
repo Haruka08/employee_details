@@ -1,4 +1,2 @@
-const router = require('express').Router();
-const books = require('./bookRoutes');
+const db = require('./connection')
 
-router.use('/books', books);
