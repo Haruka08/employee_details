@@ -14,4 +14,4 @@ const db = mysql.createConnection(
   console.log(`Connected to the company_db database.`)
 );
 
-module.exports = { db };
+module.exports = db;

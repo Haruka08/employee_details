@@ -9,40 +9,40 @@ function viewAllDepartments(){
     });
   };
   
-  // function viewAllRoles(){
+  function viewAllRoles(){
     db.query('SELECT * FROM roles', function (err, results) {
       console.table(results);
   });
-  // };
+  };
   
-  // function viewAllEmployees(){
+  function viewAllEmployees(){
     db.query('SELECT * FROM employees', function (err, results) {
       console.table(results);
   });
-  // };
+  };
   
-  // function addDept(){
-    db.query('INSERT INTO departments', function (err, results) {
+  function addDept(newDept){
+    db.query(`INSERT INTO departments (department) values (${newDept.department})`, function (err, results) {
       console.table(results);
   });
-  // };
+  };
   
-  // function addRole(){
-    db.query('INSERT INTO roles', function (err, results) {
+  function addRole(newRole){
+    db.query(`INSERT INTO roles (title, salary, department_id) values (${newRole.title}, ${newRole.salary}, ${newRole.department_id})`, function (err, results) {
       console.table(results);
   });
-  // };
+  };
   
-  // function addEmployees(){
-    db.query('INSERT INTO employees', function (err, results) {
+  function addEmployees(newEmployee){
+    db.query(`INSERT INTO employees(first_name, last_name, role_id, manager_id) values (${newEmployee.first_name}, ${newEmployee.last_name}, ${newEmployee.role_id}, ${newEmployee.manager_id})`, function (err, results) {
       console.table(results);
   });
-  // };
+  };
   
-  // function updateEmployees(){
-    db.query('UPDATE first_name, last_name FROM employees WHERE first_name=?, last_name=? role=?', results.first_name, function(err, results) {
+  function updateEmployees(updated){
+    db.query(`UPDATE first_name, last_name, role, manager FROM employees WHERE first_name=${newEmployee.first_name} AND last_name=${newEmployee.last_name}`, results.first_name, function (err, results) {
       console.table(results);
   });
-  // };
+  };
 
-  module.exports = viewAllDepartments();
+  module.exports = {viewAllDepartments};

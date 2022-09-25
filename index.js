@@ -1,10 +1,10 @@
 // Packages and files required for this application
 const inquirer = require('inquirer');
-const mysql = require('mysql2');
-const cTable = require('console.table');
+// const mysql = require('mysql2');
+// const cTable = require('console.table');
 
-const db = require('./db/connection.js')
-const viewAllDept = require('./db/index.js')
+// const db = require('./db/connection.js')
+const viewAllDepartments = require('./db/index.js')
 
 const selectAction = [
     {
