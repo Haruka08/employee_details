@@ -99,23 +99,39 @@ const updateEmployee = [
     {
         type: "list",
         message: "Which employee's data would you like to update",
-        name: "update_employee",
+        name: "first_name",
         choice: [
-            "John Doe",
-            "Mike Chan",
-            "Ashley Rodriguez",
-            "Kevin Tupik",
-            "Kunal Signh",
-            "Malia Brown",
-            "Sarah Lourd",
-            "Tom Allen",
-            "Sam Kash"
+            "John",
+            "Mike",
+            "Ashley",
+            "Kevin",
+            "Kunal",
+            "Malia",
+            "Sarah",
+            "Tom",
+            "Sam"
+        ]
+    },
+    {
+        type: "list",
+        message: "Which employee's data would you like to update",
+        name: "last_name",
+        choice: [
+            "Doe",
+            "Chan",
+            "Rodriguez",
+            "Tupik",
+            "Signh",
+            "Brown",
+            "Lourd",
+            "Allen",
+            "Kash"
         ]
     },
     {
         type: "list",
         message: "What is the new role of the employee?",
-        name: "update_role",
+        name: "role",
         choice: [
             "Sales Lead",
             "Sales Person",
@@ -130,7 +146,7 @@ const updateEmployee = [
     {
         type: "list",
         message: "Select new employee's manager",
-        name: "update_manager",
+        name: "manager",
         choices:[
             "Mike Chan",
             "Ashley Rodriguez",
