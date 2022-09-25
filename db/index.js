@@ -28,10 +28,13 @@ function viewAllDepartments(){
   };
   
   function addRole(newRole){
-    db.query(`INSERT INTO roles (title, salary, department_id) values (${newRole.title}, ${newRole.salary})`, function (err, results) {
+    db.query(`INSERT INTO roles (title, salary) values (${newRole.title}, ${newRole.salary})`, function (err, results) {
       console.table(results);
     });
-    db.query(`INSERT INTO roles (department) values (${newEmployee.department})`, function (err, results) {
+    db.query(`SELECT id FROM employees WHERE first_name=(${newRole.manager_first} AND last_name=${newRole.manager_last})`, function (err, results) {
+      db.query(`INSERT INTO employees (manager_id) values (${results})`, function (err, results) {
+        console.table(results);
+      });
       console.table(results);
   });
   };
@@ -43,7 +46,10 @@ function viewAllDepartments(){
     db.query(`INSERT INTO roles (title) values (${newEmployee.role})`, function (err, results) {
       console.table(results);
     });
-    db.query(`INSERT INTO employees (id) values (${newEmployee.first_name}, ${newEmployee.last_name})`, function (err, results) {
+    db.query(`SELECT id FROM employees WHERE first_name=(${newEmployee.manager_first} AND last_name=${newEmployee.manager_last})`, function (err, results) {
+      db.query(`INSERT INTO employees (manager_id) values (${results})`, function (err, results) {
+        console.table(results);
+      });
       console.table(results);
   });
   };

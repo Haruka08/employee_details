@@ -85,12 +85,33 @@ const addEmployee = [
     {
         type: "list",
         message: "Select new employee's manager",
-        name: "Manager",
+        name: "manager_first",
         choices:[
-            "Mike Chan",
-            "Ashley Rodriguez",
-            "kunal Singnh",
-            "Sarah Lourd"
+            "John",
+            "Mike",
+            "Ashley",
+            "Kevin",
+            "Kunal",
+            "Malia",
+            "Sarah",
+            "Tom",
+            "Sam"
+        ]
+    } ,
+    {
+        type: "list",
+        message: "Select new employee's manager",
+        name: "manager_last",
+        choices:[
+            "Doe",
+            "Chan",
+            "Rodriguez",
+            "Tupik",
+            "Signh",
+            "Brown",
+            "Lourd",
+            "Allen",
+            "Kash"
         ]
     }  
 ];
@@ -146,12 +167,33 @@ const updateEmployee = [
     {
         type: "list",
         message: "Select new employee's manager",
-        name: "manager",
+        name: "manager_first",
         choices:[
-            "Mike Chan",
-            "Ashley Rodriguez",
-            "Kunal Singnh",
-            "Sarah Lourd"
+            "John",
+            "Mike",
+            "Ashley",
+            "Kevin",
+            "Kunal",
+            "Malia",
+            "Sarah",
+            "Tom",
+            "Sam"
+        ]
+    } ,
+    {
+        type: "list",
+        message: "Select new employee's manager",
+        name: "manager_last",
+        choices:[
+            "Doe",
+            "Chan",
+            "Rodriguez",
+            "Tupik",
+            "Signh",
+            "Brown",
+            "Lourd",
+            "Allen",
+            "Kash"
         ]
     }  
 ];
