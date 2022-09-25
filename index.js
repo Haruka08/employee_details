@@ -4,13 +4,7 @@ const mysql = require('mysql2');
 const cTable = require('console.table');
 
 const db = require('./db/connection.js')
-
-// db.connect(function (err) {
-//     if (err) throw err;
-//     console.log("cannot form connection");
-//     // runs the app
-//     action();
-// });
+const viewAllDept = require('./db/index.js')
 
 const selectAction = [
     {
@@ -150,44 +144,42 @@ function action() {
     inquirer.prompt(
         selectAction
     ).then ((res) => {
-        if (res == "view all departments"){
+        if (JSON.stringify(res.action) === JSON.stringify("view all departments")){
             console.log("worked");
             viewAllDepartments();
-        } else if (res == "view all roles"){
+        } else if (JSON.stringify(res.action) === JSON.stringify("view all roles")){
             viewAllRoles();
-        } else if (res == "view all employees"){
+        } else if (JSON.stringify(res.action) === JSON.stringify("view all employees")){
             viewAllEmployees();
-        } else if (res == "add a department"){
+        } else if (JSON.stringify(res.action) === JSON.stringify("add a department")){
             inquirer.prompt(
                 addDept
             ).then((data)=>{
             addDepartment(data)
             })
-        } else if (res == "add a role"){
+        } else if (JSON.stringify(res.action) === JSON.stringify("add a role")){
             inquirer.prompt(
                 addRole
             ).then((data)=>{
             addRole(data)
             })
-        } else if (res == "add a employee"){
+        } else if (JSON.stringify(res.action) === JSON.stringify("add a employee")){
             inquirer.prompt(
                 addEmployee
             ).then((data)=>{
             addEmployee(data)
             })
-        } else if (res == "update an employee role"){
+        } else if (JSON.stringify(res.action) === JSON.stringify("update an employee role")){
             inquirer.prompt(
                 updateEmployee
             ).then((data)=>{
             updateEmployee(data)
             })
         } else {
+            console.log("didn't work")
             return;
         }
     })
 };
-
-
-
 
 action();
