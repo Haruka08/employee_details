@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 // const cTable = require('console.table');
 
 // const db = require('./db/connection.js')
-const viewAllDepartments = require('./db/index.js')
+const {viewAllDepartments, updateWorker, addWorker, addJob, addDepartment, viewAllRoles, viewAllEmployees} = require('./db/index.js')
 
 const selectAction = [
     {
@@ -42,17 +42,6 @@ const addRole = [
         type: "input",
         message: "Enter new row salary",
         name: "salary",
-    },  
-    {
-        type: "list",
-        message: "Enter new row salary",
-        name: "department",
-        choice: [
-            "Sales",
-            "Engineering",
-            "Finance",
-            "Legal"
-        ]
     }
 ];
 
@@ -67,136 +56,89 @@ const addEmployee = [
         message: "Enter new employee's last name",
         name: "last_name",
     },
-    {
-        type: "list",
-        message: "Enter new employee's role",
-        name: "role",
-        choice: [
-            "Sales Lead",
-            "Sales Person",
-            "Lead Engineer",
-            "Software Engineer",
-            "Account Manager",
-            "Accountant",
-            "Legal Team Lead",
-            "Lawyer"
-        ]
-    },
-    {
-        type: "list",
-        message: "Select new employee's manager",
-        name: "manager_first",
-        choices:[
-            "John",
-            "Mike",
-            "Ashley",
-            "Kevin",
-            "Kunal",
-            "Malia",
-            "Sarah",
-            "Tom",
-            "Sam"
-        ]
-    } ,
-    {
-        type: "list",
-        message: "Select new employee's manager",
-        name: "manager_last",
-        choices:[
-            "Doe",
-            "Chan",
-            "Rodriguez",
-            "Tupik",
-            "Signh",
-            "Brown",
-            "Lourd",
-            "Allen",
-            "Kash"
-        ]
-    }  
 ];
 
-const updateEmployee = [
-    {
-        type: "list",
-        message: "Which employee's data would you like to update",
-        name: "first_name",
-        choice: [
-            "John",
-            "Mike",
-            "Ashley",
-            "Kevin",
-            "Kunal",
-            "Malia",
-            "Sarah",
-            "Tom",
-            "Sam"
-        ]
-    },
-    {
-        type: "list",
-        message: "Which employee's data would you like to update",
-        name: "last_name",
-        choice: [
-            "Doe",
-            "Chan",
-            "Rodriguez",
-            "Tupik",
-            "Signh",
-            "Brown",
-            "Lourd",
-            "Allen",
-            "Kash"
-        ]
-    },
-    {
-        type: "list",
-        message: "What is the new role of the employee?",
-        name: "role",
-        choice: [
-            "Sales Lead",
-            "Sales Person",
-            "Lead Engineer",
-            "Software Engineer",
-            "Account Manager",
-            "Accountant",
-            "Legal Team Lead",
-            "Lawyer"
-        ]
-    },
-    {
-        type: "list",
-        message: "Select new employee's manager",
-        name: "manager_first",
-        choices:[
-            "John",
-            "Mike",
-            "Ashley",
-            "Kevin",
-            "Kunal",
-            "Malia",
-            "Sarah",
-            "Tom",
-            "Sam"
-        ]
-    } ,
-    {
-        type: "list",
-        message: "Select new employee's manager",
-        name: "manager_last",
-        choices:[
-            "Doe",
-            "Chan",
-            "Rodriguez",
-            "Tupik",
-            "Signh",
-            "Brown",
-            "Lourd",
-            "Allen",
-            "Kash"
-        ]
-    }  
-];
+// const updateEmployee = [
+//     {
+//         type: "list",
+//         message: "Which employee's data would you like to update",
+//         name: "first_name",
+//         choice: [
+//             "John",
+//             "Mike",
+//             "Ashley",
+//             "Kevin",
+//             "Kunal",
+//             "Malia",
+//             "Sarah",
+//             "Tom",
+//             "Sam"
+//         ]
+//     },
+//     {
+//         type: "list",
+//         message: "Which employee's data would you like to update",
+//         name: "last_name",
+//         choice: [
+//             "Doe",
+//             "Chan",
+//             "Rodriguez",
+//             "Tupik",
+//             "Signh",
+//             "Brown",
+//             "Lourd",
+//             "Allen",
+//             "Kash"
+//         ]
+//     },
+//     {
+//         type: "list",
+//         message: "What is the new role of the employee?",
+//         name: "role",
+//         choice: [
+//             "Sales Lead",
+//             "Sales Person",
+//             "Lead Engineer",
+//             "Software Engineer",
+//             "Account Manager",
+//             "Accountant",
+//             "Legal Team Lead",
+//             "Lawyer"
+//         ]
+//     },
+//     {
+//         type: "list",
+//         message: "Select new employee's manager",
+//         name: "manager_first",
+//         choices:[
+//             "John",
+//             "Mike",
+//             "Ashley",
+//             "Kevin",
+//             "Kunal",
+//             "Malia",
+//             "Sarah",
+//             "Tom",
+//             "Sam"
+//         ]
+//     } ,
+//     {
+//         type: "list",
+//         message: "Select new employee's manager",
+//         name: "manager_last",
+//         choices:[
+//             "Doe",
+//             "Chan",
+//             "Rodriguez",
+//             "Tupik",
+//             "Signh",
+//             "Brown",
+//             "Lourd",
+//             "Allen",
+//             "Kash"
+//         ]
+//     }  
+// ];
 
 function action() {
     inquirer.prompt(
@@ -204,38 +146,38 @@ function action() {
     ).then ((res) => {
         if (JSON.stringify(res.action) === JSON.stringify("view all departments")){
             console.log("worked");
-            viewAllDepartments();
+            viewAllDepartments(action);
         } else if (JSON.stringify(res.action) === JSON.stringify("view all roles")){
-            viewAllRoles();
+            viewAllRoles(action);
         } else if (JSON.stringify(res.action) === JSON.stringify("view all employees")){
-            viewAllEmployees();
+            viewAllEmployees(action);
         } else if (JSON.stringify(res.action) === JSON.stringify("add a department")){
             inquirer.prompt(
                 addDept
             ).then((data)=>{
-            addDepartment(data)
+            addDepartment(data, action)
             })
         } else if (JSON.stringify(res.action) === JSON.stringify("add a role")){
             inquirer.prompt(
                 addRole
             ).then((data)=>{
-            addRole(data)
+            addJob(data, action)
             })
         } else if (JSON.stringify(res.action) === JSON.stringify("add a employee")){
             inquirer.prompt(
                 addEmployee
             ).then((data)=>{
-            addEmployee(data)
+            addWorker(data, action)
             })
         } else if (JSON.stringify(res.action) === JSON.stringify("update an employee role")){
             inquirer.prompt(
                 updateEmployee
             ).then((data)=>{
-            updateEmployee(data)
+            updateWorker(data,action)
             })
         } else {
             console.log("didn't work")
-            return;
+            process.exit()
         }
     })
 };
