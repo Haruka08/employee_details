@@ -19,7 +19,7 @@ function viewAllDepartments(action){
   };
   
   function viewAllEmployees(action){
-    db.query('SELECT * FROM employees', function (err, results) {
+    db.query('SELECT * FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id', function (err, results) {
       console.table(results);
       action();
   });
