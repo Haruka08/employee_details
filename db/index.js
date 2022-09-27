@@ -57,7 +57,42 @@ function viewAllDepartments(action){
     })
   };
   
-  function addWorker(newEmployee){
+  function addWorker(newEmployee, action){
+    db.query('SELECT * FROM roles', function(err, results1){
+      db.query('SELECT * FROM employees', function(err, results2){
+      inquirer.prompt(
+        [
+          {
+            type: "list",
+            message: "Select the role",
+            name: "role",
+            choices: results1.map(result => {
+              return{
+                name: result.title,
+                value:  result.id
+            }})
+          },
+          {
+            type: "list",
+            message: "Select the manager",
+            name: "manager",
+            choices: results2.map(result => {
+              return{
+                name: result.first_name + " " + result.last_name,
+                value:  result.id
+            }})
+          }
+          ]).then(answer =>{
+            db.query(`INSERT INTO employees(first_name, last_name, role_id, manager_id) values ("${newEmployee.first_name}", "${newEmployee.last_name}", ${answer.role}, ${answer.manager})`, function (err, results) {
+              console.table(results);
+              action();
+            });
+        });
+      });
+  });
+};
+  
+  function updateWorker(updated, action){
     db.query('SELECT * FROM employees JOIN roles ON employees.role_id = role.id', function(err, results){
       inquirer.prompt(
         [
@@ -80,35 +115,24 @@ function viewAllDepartments(action){
                 name: result.role,
                 value:  result.id
             }})
+          },
+          {
+            type: "list",
+            message: "Select the employee",
+            name: "manager",
+            choices: results.map(result => {
+              return{
+                name: result.role,
+                value:  result.id
+            }})
           }
           ])
           }).then(answer =>{
-            db.query(`INSERT INTO employees(first_name, last_name, role_id, manager_id) values ("${newEmployee.first_name}", "${newEmployee.last_name}", ${answer.role}, ${answer.manager})`, function (err, results) {
-              console.table(results);
-              action();
-            });
-  });
-};
-  
-  function updateWorker(updated){
-    db.query('SELECT * FROM employees JOIN roles ON employees.role_id = role.id', function(err, results){
-        inquirer.prompt({
-          type: "list",
-          message: "Select the employee",
-          name: "employee",
-          choices: results.map(result => {
-            return{
-              name: result.department,
-              value:  result.id
-            }
-          })
-      }).then(answer =>{
-        db.query(`UPDATE first_name, last_name, role_id, manager_id FROM employees WHERE employee_id=${answer.employee}`, function (err, results) {
-          console.table(results);
-          action();
+      db.query(`UPDATE employees SET first_name=${updated.first_name}, last_name=${updated.last_name}, role_id=${answer.role}, manager_id=${answer.manager} WHERE id=${answer.employee}`, function (err, results) {
+            console.table(results);
+            action();
     });
-  });
-})};
-
+  })
+};
 
   module.exports = {viewAllDepartments, updateWorker, addWorker, addJob, addDepartment, viewAllRoles, viewAllEmployees};

@@ -58,87 +58,41 @@ const addEmployee = [
     },
 ];
 
-// const updateEmployee = [
-//     {
-//         type: "list",
-//         message: "Which employee's data would you like to update",
-//         name: "first_name",
-//         choice: [
-//             "John",
-//             "Mike",
-//             "Ashley",
-//             "Kevin",
-//             "Kunal",
-//             "Malia",
-//             "Sarah",
-//             "Tom",
-//             "Sam"
-//         ]
-//     },
-//     {
-//         type: "list",
-//         message: "Which employee's data would you like to update",
-//         name: "last_name",
-//         choice: [
-//             "Doe",
-//             "Chan",
-//             "Rodriguez",
-//             "Tupik",
-//             "Signh",
-//             "Brown",
-//             "Lourd",
-//             "Allen",
-//             "Kash"
-//         ]
-//     },
-//     {
-//         type: "list",
-//         message: "What is the new role of the employee?",
-//         name: "role",
-//         choice: [
-//             "Sales Lead",
-//             "Sales Person",
-//             "Lead Engineer",
-//             "Software Engineer",
-//             "Account Manager",
-//             "Accountant",
-//             "Legal Team Lead",
-//             "Lawyer"
-//         ]
-//     },
-//     {
-//         type: "list",
-//         message: "Select new employee's manager",
-//         name: "manager_first",
-//         choices:[
-//             "John",
-//             "Mike",
-//             "Ashley",
-//             "Kevin",
-//             "Kunal",
-//             "Malia",
-//             "Sarah",
-//             "Tom",
-//             "Sam"
-//         ]
-//     } ,
-//     {
-//         type: "list",
-//         message: "Select new employee's manager",
-//         name: "manager_last",
-//         choices:[
-//             "Doe",
-//             "Chan",
-//             "Rodriguez",
-//             "Tupik",
-//             "Signh",
-//             "Brown",
-//             "Lourd",
-//             "Allen",
-//             "Kash"
-//         ]
-//     }  
-// ];
+const updateEmployee = [
+    {
+        type: "list",
+        message: "Which employee's data would you like to update",
+        name: "first_name",
+        choices: [
+            "John Doe",
+            "Mike",
+            "Ashley",
+            "Kevin",
+            "Kunal",
+            "Malia",
+            "Sarah",
+            "Tom",
+            "Sam"
+        ]
+    },
+    {
+        type: "list",
+        message: "Which employee's data would you like to update",
+        name: "last_name",
+        choices: [
+            "Doe",
+            "Chan",
+            "Rodriguez",
+            "Tupik",
+            "Signh",
+            "Brown",
+            "Lourd",
+            "Allen",
+            "Kash"
+        ]
+    },
+
+];
 
 function action() {
     inquirer.prompt(
@@ -163,7 +117,7 @@ function action() {
             ).then((data)=>{
             addJob(data, action)
             })
-        } else if (JSON.stringify(res.action) === JSON.stringify("add a employee")){
+        } else if (JSON.stringify(res.action) === JSON.stringify("add an employee")){
             inquirer.prompt(
                 addEmployee
             ).then((data)=>{
