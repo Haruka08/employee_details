@@ -93,16 +93,17 @@ function viewAllDepartments(action){
 };
   
   function updateWorker(updated, action){
-    db.query('SELECT * FROM employees JOIN roles ON employees.role_id = role.id', function(err, results){
+    db.query('SELECT * FROM roles', function(err, results1){
+      db.query('SELECT * FROM employees', function(err, results2){
       inquirer.prompt(
         [
           {
             type: "list",
             message: "Select the role",
             name: "role",
-            choices: results.map(result => {
+            choices: results1.map(result => {
               return{
-                name: result.role,
+                name: result.title,
                 value:  result.id
             }})
           },
@@ -110,29 +111,20 @@ function viewAllDepartments(action){
             type: "list",
             message: "Select the manager",
             name: "manager",
-            choices: results.map(result => {
+            choices: results2.map(result => {
               return{
-                name: result.role,
-                value:  result.id
-            }})
-          },
-          {
-            type: "list",
-            message: "Select the employee",
-            name: "manager",
-            choices: results.map(result => {
-              return{
-                name: result.role,
+                name: result.first_name + " " + result.last_name,
                 value:  result.id
             }})
           }
-          ])
-          }).then(answer =>{
-      db.query(`UPDATE employees SET first_name=${updated.first_name}, last_name=${updated.last_name}, role_id=${answer.role}, manager_id=${answer.manager} WHERE id=${answer.employee}`, function (err, results) {
+          ]).then(answer =>{
+      db.query(`UPDATE employees SET role_id=${answer.role}, manager_id=${answer.manager} WHERE first_name="${updated.first_name}"AND last_name="${updated.last_name}"`, function (err, results) {
             console.table(results);
             action();
     });
+    });
   })
+})
 };
 
   module.exports = {viewAllDepartments, updateWorker, addWorker, addJob, addDepartment, viewAllRoles, viewAllEmployees};

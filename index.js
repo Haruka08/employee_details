@@ -64,7 +64,7 @@ const updateEmployee = [
         message: "Which employee's data would you like to update",
         name: "first_name",
         choices: [
-            "John Doe",
+            "John",
             "Mike",
             "Ashley",
             "Kevin",
@@ -99,7 +99,6 @@ function action() {
         selectAction
     ).then ((res) => {
         if (JSON.stringify(res.action) === JSON.stringify("view all departments")){
-            console.log("worked");
             viewAllDepartments(action);
         } else if (JSON.stringify(res.action) === JSON.stringify("view all roles")){
             viewAllRoles(action);
@@ -130,7 +129,6 @@ function action() {
             updateWorker(data,action)
             })
         } else {
-            console.log("didn't work")
             process.exit()
         }
     })
